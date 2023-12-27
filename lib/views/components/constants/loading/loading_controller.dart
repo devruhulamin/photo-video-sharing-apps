@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart' show immutable;
 
 typedef CloseLoadingScreen = bool Function();
-typedef UpdateLoadingScreem = bool Function(String);
+typedef UpdateLoadingScreen = bool Function(String text);
 
 @immutable
 class LoadingScreenController {
-  final CloseLoadingScreen closeLoadingScreen;
-  final UpdateLoadingScreem updateLoadingScreem;
+  final CloseLoadingScreen close;
+  final UpdateLoadingScreen update;
 
-  const LoadingScreenController(
-      {required this.closeLoadingScreen, required this.updateLoadingScreem});
+  const LoadingScreenController({
+    required this.close,
+    required this.update,
+  });
 }

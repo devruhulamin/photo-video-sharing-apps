@@ -7,6 +7,7 @@ import 'dart:developer' as devtools show log;
 
 import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
 import 'package:instagram_clone/state/auth/providers/is_login_provider.dart';
+import 'package:instagram_clone/state/providers/is_loading_provider.dart';
 import 'package:instagram_clone/views/components/constants/loading/loading_screen.dart';
 
 extension Log on Object {
@@ -60,7 +61,15 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: Consumer(
-        builder: (context, ref, child) {
+        builder: (_, ref, child) {
+          ref.listen<bool>(isLoadingProvider, (previous, next) {
+            next.log();
+            if (next) {
+              LoadingScreen.instance().show(context: context);
+            } else {
+              LoadingScreen.instance().hide();
+            }
+          });
           final isloggedIn = ref.watch(isLoggedInProvider);
           if (isloggedIn) {
             return const MainPage();

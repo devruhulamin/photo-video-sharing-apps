@@ -7,6 +7,7 @@ import 'dart:developer' as devtools show log;
 
 import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
 import 'package:instagram_clone/state/auth/providers/is_login_provider.dart';
+import 'package:instagram_clone/views/components/constants/loading/loading_screen.dart';
 
 extension Log on Object {
   void log() => devtools.log(toString());

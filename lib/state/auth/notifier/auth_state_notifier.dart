@@ -20,7 +20,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     state = state.copyWithLoading(true);
     await _authenticator.logout();
     state = const AuthState.unknown();
-    state = state.copyWithLoading(false);
+    // state = state.copyWithLoading(false);
   }
 
   Future<void> loginWithGoogle() async {
@@ -31,6 +31,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     if (result == AuthResult.success && userId != null) {
       saveUserInfo(userId: userId);
       state = AuthState(result: result, isLoading: false, userId: userId);
+    } else {
+      state = const AuthState.unknown();
     }
   }
 
@@ -42,6 +44,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     if (result == AuthResult.success && userId != null) {
       saveUserInfo(userId: userId);
       state = AuthState(result: result, isLoading: false, userId: userId);
+    } else {
+      state = const AuthState.unknown();
     }
   }
 

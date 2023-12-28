@@ -9,6 +9,7 @@ import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
 import 'package:instagram_clone/state/auth/providers/is_login_provider.dart';
 import 'package:instagram_clone/state/providers/is_loading_provider.dart';
 import 'package:instagram_clone/views/components/constants/loading/loading_screen.dart';
+import 'package:instagram_clone/views/login/login_view.dart';
 
 extension Log on Object {
   void log() => devtools.log(toString());
@@ -19,7 +20,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,69 +40,27 @@ class MyApp extends StatelessWidget {
         indicatorColor: Colors.blueGrey,
       ),
       themeMode: ThemeMode.dark,
-      home: const ProviderScope(child: Home()),
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 10,
-        title: const Text("Home Page"),
-        centerTitle: true,
-      ),
-      body: Consumer(
-        builder: (_, ref, child) {
-          ref.listen<bool>(isLoadingProvider, (previous, next) {
-            next.log();
-            if (next) {
-              LoadingScreen.instance().show(context: context);
-            } else {
-              LoadingScreen.instance().hide();
-            }
-          });
+      home: Consumer(
+        builder: (context, ref, child) {
+          ref.listen<bool>(
+            isLoadingProvider,
+            (_, isLoading) {
+              if (isLoading) {
+                LoadingScreen.instance().show(
+                  context: context,
+                );
+              } else {
+                LoadingScreen.instance().hide();
+              }
+            },
+          );
           final isloggedIn = ref.watch(isLoggedInProvider);
           if (isloggedIn) {
             return const MainPage();
           } else {
-            return const LoginPage();
+            return const LoginView();
           }
         },
-      ),
-    );
-  }
-}
-
-class LoginPage extends ConsumerWidget {
-  const LoginPage({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Login Page")),
-      body: Column(
-        children: [
-          TextButton(
-              onPressed: () async {
-                ref.read(authStateProvider.notifier).loginWithGoogle();
-              },
-              child: const Text("Google Login")),
-          TextButton(
-              onPressed: () async {
-                ref.read(authStateProvider.notifier).loginWithFacebook();
-              },
-              child: const Text("Facebook Login")),
-        ],
       ),
     );
   }

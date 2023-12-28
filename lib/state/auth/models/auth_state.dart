@@ -20,7 +20,7 @@ class AuthState {
 
   @override
   bool operator ==(covariant AuthState other) =>
-      identical(this, other) ||
+      identical(this, other) &&
       (result == other.result &&
           isLoading == other.isLoading &&
           userId == other.userId);

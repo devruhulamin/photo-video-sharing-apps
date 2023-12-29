@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/views/components/animations/empty_animation_view.dart';
-import 'package:instagram_clone/views/constants/view_strings.dart';
 
 class EmptyAnimationWithText extends StatelessWidget {
   const EmptyAnimationWithText({super.key, required this.text});

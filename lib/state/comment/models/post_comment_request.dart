@@ -6,7 +6,7 @@ import 'package:instagram_clone/state/post/typedefs/post_id.dart';
 class RequestForPostAndComment {
   final PostId postId;
   final DateSorting dateSorting;
-  final String sortBycreatedAt;
+  final bool sortBycreatedAt;
   final int? limit;
 
   const RequestForPostAndComment(

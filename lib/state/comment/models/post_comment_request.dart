@@ -11,8 +11,8 @@ class RequestForPostAndComment {
 
   const RequestForPostAndComment(
       {required this.postId,
-      required this.dateSorting,
-      required this.sortBycreatedAt,
+      this.dateSorting = DateSorting.newestOnTop,
+      this.sortBycreatedAt = true,
       this.limit});
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_clone/main.dart';
 import 'package:instagram_clone/state/auth/providers/user_id_provider.dart';
 import 'package:instagram_clone/state/comment/models/comment_mode.dart';
 import 'package:instagram_clone/state/comment/providers/delete_comment_provider.dart';

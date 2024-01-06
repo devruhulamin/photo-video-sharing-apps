@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_clone/main.dart';
 import 'package:instagram_clone/state/auth/providers/user_id_provider.dart';
 import 'package:instagram_clone/state/comment/models/comment_mode.dart';
 import 'package:instagram_clone/state/comment/providers/delete_comment_provider.dart';
@@ -15,13 +16,15 @@ class CommentTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userData = ref.watch(userInfoModelProvider(comment.userId));
     final userId = ref.read(userIdProvider);
+    final userData = ref.watch(userInfoModelProvider(comment.userId));
+
     return userData.when(
       data: (userInfo) {
         return ListTile(
           title: Text(comment.comment),
-          subtitle: comment.userId == userId
+          subtitle: Text(userInfo.displayName),
+          trailing: comment.userId == userId
               ? IconButton(
                   onPressed: () async {
                     final shouldDelete = await displayShouldDelete(context);

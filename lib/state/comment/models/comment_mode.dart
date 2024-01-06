@@ -14,7 +14,7 @@ class CommentModel {
   final String comment;
   CommentModel({required Map<String, dynamic> json, required String commentid})
       : commentId = commentid,
-        userId = json[FirebaseFieldName.postId],
+        userId = json[FirebaseFieldName.userId],
         postId = json[FirebaseFieldName.postId],
         createdAt = (json[FirebaseFieldName.createdAt] as Timestamp).toDate(),
         comment = json[FirebaseFieldName.comment];

@@ -36,6 +36,7 @@ final likeDislikePostProvider = FutureProvider.autoDispose
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.likes)
           .add(likeData);
+      return true;
     } catch (_) {
       return false;
     }

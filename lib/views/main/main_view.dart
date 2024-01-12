@@ -91,7 +91,6 @@ class _MainViewState extends ConsumerState<MainView>
             bottom: TabBar(
                 onTap: (value) {
                   _controller.index = value;
-                  print(value);
                 },
                 controller: _controller,
                 tabs: const [

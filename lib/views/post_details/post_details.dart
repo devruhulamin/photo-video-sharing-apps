@@ -129,7 +129,7 @@ class _PostDetailsViewState extends ConsumerState<PostDetailsView> {
                   ),
                 ),
                 CompactCommentColumn(comments: postAndComments.comments),
-                if (postAndComments.post.allowComments)
+                if (postAndComments.post.allowLikes)
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Row(

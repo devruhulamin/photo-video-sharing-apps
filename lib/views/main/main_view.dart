@@ -19,7 +19,20 @@ class MainView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _MainViewState();
 }
 
-class _MainViewState extends ConsumerState<MainView> {
+class _MainViewState extends ConsumerState<MainView>
+    with SingleTickerProviderStateMixin {
+  late final _controller = TabController(length: 3, vsync: this);
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (_controller.indexIsChanging) {
+        FocusScope.of(context).requestFocus(FocusNode());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -75,19 +88,25 @@ class _MainViewState extends ConsumerState<MainView> {
                   },
                   icon: const Icon(Icons.logout)),
             ],
-            bottom: const TabBar(tabs: [
-              Tab(
-                icon: Icon(Icons.person),
-              ),
-              Tab(
-                icon: Icon(Icons.search),
-              ),
-              Tab(
-                icon: Icon(Icons.home),
-              ),
-            ]),
+            bottom: TabBar(
+                onTap: (value) {
+                  _controller.index = value;
+                  print(value);
+                },
+                controller: _controller,
+                tabs: const [
+                  Tab(
+                    icon: Icon(Icons.person),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.search),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.home),
+                  ),
+                ]),
           ),
-          body: const TabBarView(children: [
+          body: TabBarView(controller: _controller, children: const [
             UserPostsView(),
             SearchView(),
             UserPostsView(),

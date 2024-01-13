@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/state/auth/backend/authenticator.dart';
 import 'package:instagram_clone/state/auth/models/auth_result.dart';
@@ -24,11 +23,45 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     // state = state.copyWithLoading(false);
   }
 
+  // singup with email and password
+  // login with email and password and linking account
+  Future<void> signUpWithEmailPassword(
+      {required String email, required String password}) async {
+    state = state.copyWithLoading(true);
+
+    final result = await _authenticator.signUpWithEmailPassword(
+      email: email,
+      password: password,
+    );
+
+    final userId = _authenticator.userId;
+
+    if (result == AuthResult.success && userId != null) {
+      saveUserInfo(userId: userId);
+      state = AuthState(result: result, isLoading: false, userId: userId);
+    } else {
+      state = const AuthState.unknown();
+    }
+  }
+
   // login with email and password and linking account
   Future<void> loginWithEmailPassword(
       {required String email, required String password}) async {
-    final credentials =
-        EmailAuthProvider.credential(email: email, password: password);
+    state = state.copyWithLoading(true);
+
+    final result = await _authenticator.loginWithEmailPassword(
+      email: email,
+      password: password,
+    );
+
+    final userId = _authenticator.userId;
+
+    if (result == AuthResult.success && userId != null) {
+      saveUserInfo(userId: userId);
+      state = AuthState(result: result, isLoading: false, userId: userId);
+    } else {
+      state = const AuthState.unknown();
+    }
   }
 
   Future<void> loginWithGoogle() async {

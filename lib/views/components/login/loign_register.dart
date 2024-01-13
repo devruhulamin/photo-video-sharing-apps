@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
+import 'package:instagram_clone/views/constants/view_strings.dart';
 import 'package:instagram_clone/views/extensions/email_validation.dart';
 import 'package:instagram_clone/views/extensions/password_validation.dart';
 
@@ -33,7 +35,8 @@ class LoginRegister extends HookConsumerWidget {
         TextFormField(
           controller: emailController,
           decoration: const InputDecoration(
-              labelText: 'Email address: ', border: OutlineInputBorder()),
+              labelText: ViewStrings.emailAddress,
+              border: OutlineInputBorder()),
         ),
         const SizedBox(
           height: 14,
@@ -41,14 +44,20 @@ class LoginRegister extends HookConsumerWidget {
         TextFormField(
           controller: passwordController,
           decoration: const InputDecoration(
-              labelText: 'Password', border: OutlineInputBorder()),
+              labelText: ViewStrings.password, border: OutlineInputBorder()),
         ),
         const SizedBox(
           height: 14,
         ),
         ElevatedButton(
-            onPressed: isEnabled.value ? () {} : null,
-            child: const Text("Login"))
+            onPressed: isEnabled.value
+                ? () {
+                    ref.read(authStateProvider.notifier).loginWithEmailPassword(
+                        email: emailController.text,
+                        password: passwordController.text);
+                  }
+                : null,
+            child: const Text(ViewStrings.login))
       ],
     );
   }

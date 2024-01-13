@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/views/components/rich_text/base_text.dart';
 import 'package:instagram_clone/views/components/rich_text/rich_text_widget.dart';
 import 'package:instagram_clone/views/constants/view_strings.dart';
+import 'package:instagram_clone/views/register/register_view.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class LoginViewSignupLinks extends StatelessWidget {
@@ -26,6 +27,15 @@ class LoginViewSignupLinks extends StatelessWidget {
             txt: ViewStrings.google,
             ontapped: () {
               launchUrlString(ViewStrings.googleSignupUrl);
+            },
+          ),
+          BaseText.plain(txt: ViewStrings.orCreateAnAccountEmail),
+          BaseText.link(
+            txt: ViewStrings.createNewAccount,
+            ontapped: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const RegisterView(),
+              ));
             },
           ),
         ]);

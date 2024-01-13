@@ -34,5 +34,11 @@ class ViewStrings {
   static const dontHaveAnAccount = "Don't have an account?\n";
   static const signUpOn = 'Sign up on ';
   static const orCreateAnAccountOn = ' or create an account on ';
+  static const orCreateAnAccountEmail = ' or create an account using email ';
+
+  static const createNewAccount = "Create New Account";
+  static const emailAddress = 'Email Adress: ';
+  static const password = 'Password: ';
+  static const login = 'login';
   const ViewStrings._();
 }

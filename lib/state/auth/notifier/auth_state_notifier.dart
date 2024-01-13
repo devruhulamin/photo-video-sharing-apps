@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_clone/main.dart';
 import 'package:instagram_clone/state/auth/backend/authenticator.dart';
 import 'package:instagram_clone/state/auth/models/auth_result.dart';
 import 'package:instagram_clone/state/auth/models/auth_state.dart';
@@ -39,6 +40,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     if (result == AuthResult.success && userId != null) {
       saveUserInfo(userId: userId);
       state = AuthState(result: result, isLoading: false, userId: userId);
+      'auth state updated'.log();
     } else {
       state = const AuthState.unknown();
     }

@@ -7,7 +7,8 @@ import 'package:instagram_clone/views/extensions/email_validation.dart';
 import 'package:instagram_clone/views/extensions/password_validation.dart';
 
 class LoginRegister extends HookConsumerWidget {
-  const LoginRegister({super.key});
+  final bool isRegister;
+  const LoginRegister({super.key, this.isRegister = false});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
@@ -52,12 +53,17 @@ class LoginRegister extends HookConsumerWidget {
         ElevatedButton(
             onPressed: isEnabled.value
                 ? () {
-                    ref.read(authStateProvider.notifier).loginWithEmailPassword(
-                        email: emailController.text,
-                        password: passwordController.text);
+                    final authState = ref.read(authStateProvider.notifier);
+                    isRegister
+                        ? authState.signUpWithEmailPassword(
+                            email: emailController.text,
+                            password: passwordController.text)
+                        : authState.loginWithEmailPassword(
+                            email: emailController.text,
+                            password: passwordController.text);
                   }
                 : null,
-            child: const Text(ViewStrings.login))
+            child: Text(isRegister ? ViewStrings.register : ViewStrings.login))
       ],
     );
   }

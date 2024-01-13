@@ -40,5 +40,8 @@ class ViewStrings {
   static const emailAddress = 'Email Adress: ';
   static const password = 'Password: ';
   static const login = 'login';
+  static const registerYourAccountUsingEmail =
+      "Register Your Account Using Email And Password";
+  static const register = 'Register';
   const ViewStrings._();
 }

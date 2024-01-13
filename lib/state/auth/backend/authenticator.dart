@@ -18,6 +18,56 @@ class Authenticator {
     await FacebookAuth.instance.logOut();
   }
 
+  Future<AuthResult> signUpWithEmailPassword(
+      {required String email, required String password}) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return AuthResult.success;
+    } on FirebaseAuthException catch (e) {
+      final email = e.email;
+      final credentials = e.credential;
+      if (e.code == AuthConstant.accountExistsWithDifferentCredentials &&
+          email != null &&
+          credentials != null) {
+        final providers =
+            await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+        if (providers.contains(AuthConstant.googleCom)) {
+          await googleLogin();
+          await FirebaseAuth.instance.currentUser
+              ?.linkWithCredential(credentials);
+          return AuthResult.success;
+        }
+      }
+    }
+    return AuthResult.failure;
+  }
+
+  Future<AuthResult> loginWithEmailPassword(
+      {required String email, required String password}) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return AuthResult.success;
+    } on FirebaseAuthException catch (e) {
+      final email = e.email;
+      final credentials = e.credential;
+      if (e.code == AuthConstant.accountExistsWithDifferentCredentials &&
+          email != null &&
+          credentials != null) {
+        final providers =
+            await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+        if (providers.contains(AuthConstant.googleCom)) {
+          await googleLogin();
+          await FirebaseAuth.instance.currentUser
+              ?.linkWithCredential(credentials);
+          return AuthResult.success;
+        }
+      }
+    }
+    return AuthResult.failure;
+  }
+
   Future<AuthResult> facebookLogin() async {
     final result = await FacebookAuth.instance.login();
 

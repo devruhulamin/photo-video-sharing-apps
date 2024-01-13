@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/state/auth/backend/authenticator.dart';
 import 'package:instagram_clone/state/auth/models/auth_result.dart';
@@ -21,6 +22,13 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     await _authenticator.logout();
     state = const AuthState.unknown();
     // state = state.copyWithLoading(false);
+  }
+
+  // login with email and password and linking account
+  Future<void> loginWithEmailPassword(
+      {required String email, required String password}) async {
+    final credentials =
+        EmailAuthProvider.credential(email: email, password: password);
   }
 
   Future<void> loginWithGoogle() async {

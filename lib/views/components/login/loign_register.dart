@@ -52,15 +52,21 @@ class LoginRegister extends HookConsumerWidget {
         ),
         ElevatedButton(
             onPressed: isEnabled.value
-                ? () {
+                ? () async {
                     final authState = ref.read(authStateProvider.notifier);
-                    isRegister
-                        ? authState.signUpWithEmailPassword(
-                            email: emailController.text,
-                            password: passwordController.text)
-                        : authState.loginWithEmailPassword(
-                            email: emailController.text,
-                            password: passwordController.text);
+
+                    if (isRegister) {
+                      await authState.signUpWithEmailPassword(
+                          email: emailController.text,
+                          password: passwordController.text);
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    } else {
+                      await authState.loginWithEmailPassword(
+                          email: emailController.text,
+                          password: passwordController.text);
+                    }
                   }
                 : null,
             child: Text(isRegister ? ViewStrings.register : ViewStrings.login))

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
+import 'package:instagram_clone/views/components/login/loign_register.dart';
 import 'package:instagram_clone/views/constants/app_colors.dart';
 import 'package:instagram_clone/views/constants/view_strings.dart';
 import 'package:instagram_clone/views/login/divider_with_margin.dart';
@@ -25,7 +26,7 @@ class LoginView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(
-                height: 40,
+                height: 10,
               ),
               Text(
                 ViewStrings.welcomeToAppName,
@@ -39,6 +40,10 @@ class LoginView extends ConsumerWidget {
                     .titleMedium
                     ?.copyWith(height: 1.5),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              const LoginRegister(),
               const SizedBox(
                 height: 20,
               ),

@@ -14,14 +14,12 @@ class ReelsPayload extends MapView<String, dynamic> {
     required String message,
     required String fileName,
     required String originalFileStorageId,
-    required double aspectRatio,
     required Map<PostSetting, bool> postSettings,
   }) : super({
           PostKey.userId: userId,
           PostKey.fileName: fileName,
           PostKey.message: message,
           PostKey.originalFileStorageId: originalFileStorageId,
-          PostKey.aspectRatio: aspectRatio,
           PostKey.fileUrl: fileUrl,
           PostKey.postSettings: {
             for (final postSetting in postSettings.entries)

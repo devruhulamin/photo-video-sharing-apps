@@ -13,7 +13,6 @@ class Reels {
   final DateTime createdAt;
   final String fileUrl;
   final String originalFileStorageId;
-  final double aspectRatio;
   final Map<PostSetting, bool> postSettings;
 
   Reels({required this.reelId, required Map<String, dynamic> json})
@@ -23,7 +22,6 @@ class Reels {
         createdAt = (json[PostKey.createdAt] as Timestamp).toDate(),
         fileUrl = json[PostKey.fileUrl],
         originalFileStorageId = json[PostKey.originalFileStorageId],
-        aspectRatio = json[PostKey.aspectRatio],
         postSettings = {
           for (final entry in json[PostKey.postSettings].entries)
             PostSetting.values

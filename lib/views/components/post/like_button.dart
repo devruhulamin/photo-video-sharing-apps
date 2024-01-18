@@ -10,7 +10,8 @@ import 'package:instagram_clone/views/components/animations/small_error_animaion
 
 class LikeButton extends ConsumerWidget {
   final PostId postId;
-  const LikeButton({super.key, required this.postId});
+  final bool isReel;
+  const LikeButton({super.key, required this.postId, this.isReel = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,9 +29,12 @@ class LikeButton extends ConsumerWidget {
 
               ref.read(likeDislikePostProvider(likeReq));
             },
-            icon: FaIcon(hasLike
-                ? FontAwesomeIcons.solidHeart
-                : FontAwesomeIcons.heart));
+            icon: hasLike
+                ? const FaIcon(
+                    FontAwesomeIcons.solidHeart,
+                    color: Colors.red,
+                  )
+                : const FaIcon(FontAwesomeIcons.heart));
       },
       error: (error, stackTrace) => const SmallErrorAnimationView(),
       loading: () => const Center(

@@ -7,7 +7,7 @@ import 'package:instagram_clone/state/constant/firebase_collection_name.dart';
 import 'package:instagram_clone/state/post/typedefs/user_id.dart';
 import 'package:instagram_clone/state/post_settings/models/post_setting.dart';
 import 'package:instagram_clone/state/post_settings/typedefs/is_loading_bool.dart';
-import 'package:instagram_clone/state/reels_upload/model/reels_payload.dart';
+import 'package:instagram_clone/state/reels/model/reels_payload.dart';
 import 'package:uuid/uuid.dart';
 
 class ReelsUploadNotifier extends StateNotifier<IsloadingBool> {

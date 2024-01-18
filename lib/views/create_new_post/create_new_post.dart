@@ -9,7 +9,7 @@ import 'package:instagram_clone/state/image_upload/models/thumbnail_request.dart
 import 'package:instagram_clone/state/image_upload/providers/image_upload_providers.dart';
 import 'package:instagram_clone/state/post_settings/models/post_setting.dart';
 import 'package:instagram_clone/state/post_settings/providers/post_settings_notifier_provider.dart';
-import 'package:instagram_clone/state/reels_upload/provider/reels_upload_provider.dart';
+import 'package:instagram_clone/state/reels/provider/reels_upload_provider.dart';
 import 'package:instagram_clone/views/components/file_thumbnail_view.dart';
 import 'package:instagram_clone/views/constants/view_strings.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class IcconButtonWithText extends StatelessWidget {
   final VoidCallback onTap;
-  final IconData icon;
+  final Widget icon;
   final String iconLabel;
   const IcconButtonWithText(
       {super.key,
@@ -16,12 +16,9 @@ class IcconButtonWithText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
-            onPressed: () {},
-            icon: Icon(
-              icon,
-              size: 40,
-              color: Colors.white,
-            )),
+          onPressed: () {},
+          icon: icon,
+        ),
         Text(iconLabel)
       ],
     );

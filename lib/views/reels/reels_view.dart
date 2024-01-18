@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_clone/views/components/reels/reels_action_buttons.dart';
-import 'package:instagram_clone/views/components/reels/reels_upload_button.dart';
-import 'package:instagram_clone/views/components/reels/reels_video_view.dart';
+import 'package:instagram_clone/state/reels/provider/all_reels_provider.dart';
+import 'package:instagram_clone/views/components/animations/error_animation_view.dart';
+import 'package:instagram_clone/views/reels/reel_item.dart';
 
 class ReelsView extends ConsumerStatefulWidget {
   const ReelsView({super.key});
@@ -14,59 +14,15 @@ class ReelsView extends ConsumerStatefulWidget {
 class _ReelsViewState extends ConsumerState<ReelsView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Center(
-        child: PageView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return const Stack(
-              fit: StackFit.expand,
-              children: [
-                ReelVideoView(),
-                Positioned(top: 10, right: 10, child: ReelsUploadButton()),
-                Positioned(
-                  bottom: 10,
-                  right: 20,
-                  child: ReelsActionButton(),
-                ),
-                Positioned(
-                  bottom: 20,
-                  left: 10,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 15,
-                            child: Icon(
-                              Icons.person,
-                              size: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text('Ruhul Amin'),
-                        ],
-                      ),
-                      Text(
-                        'Beautiful Mosque with nice song..',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            );
-          },
-        ),
+    final allreels = ref.watch(allReelsProvider);
+    return allreels.when(
+      data: (reels) {
+        return ReelItem(reels: reels);
+      },
+      loading: () => const Center(
+        child: CircleAvatar(),
       ),
+      error: (error, stackTrace) => const ErrorAnimationView(),
     );
   }
 }

@@ -10,26 +10,27 @@ class ReelVideoView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = VideoPlayerController.networkUrl(Uri.parse(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'));
-    final isReady = useState(false);
+        'https://github.com/devruhulamin/photo-video-sharing-apps/raw/main/testvideo/t1.mp4'));
+    final isVideoPlayerReady = useState(false);
 
     useEffect(() {
       controller.initialize().then((value) {
-        isReady.value = true;
+        isVideoPlayerReady.value = true;
         controller.setLooping(true);
         controller.play();
       });
       return controller.dispose;
-    }, []);
-    if (isReady.value) {
-      return AspectRatio(
-        aspectRatio: controller.value.aspectRatio,
-        child: VideoPlayer(controller),
-      );
-    } else if (isReady.value == false) {
-      return const LoadingAnimationView();
-    } else {
-      return const ErrorAnimationView();
+    }, [controller]);
+    switch (isVideoPlayerReady.value) {
+      case true:
+        return AspectRatio(
+          aspectRatio: controller.value.aspectRatio,
+          child: VideoPlayer(controller),
+        );
+      case false:
+        return const LoadingAnimationView();
+      default:
+        return const ErrorAnimationView();
     }
   }
 }

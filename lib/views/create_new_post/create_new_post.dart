@@ -9,13 +9,19 @@ import 'package:instagram_clone/state/image_upload/models/thumbnail_request.dart
 import 'package:instagram_clone/state/image_upload/providers/image_upload_providers.dart';
 import 'package:instagram_clone/state/post_settings/models/post_setting.dart';
 import 'package:instagram_clone/state/post_settings/providers/post_settings_notifier_provider.dart';
+import 'package:instagram_clone/state/reels_upload/provider/reels_upload_provider.dart';
 import 'package:instagram_clone/views/components/file_thumbnail_view.dart';
 import 'package:instagram_clone/views/constants/view_strings.dart';
 
 class CreateNewPost extends StatefulHookConsumerWidget {
   final File file;
   final FileType fileType;
-  const CreateNewPost({super.key, required this.file, required this.fileType});
+  final bool isReel;
+  const CreateNewPost(
+      {super.key,
+      required this.file,
+      required this.fileType,
+      this.isReel = false});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CreateNewPostState();
@@ -53,14 +59,26 @@ class _CreateNewPostState extends ConsumerState<CreateNewPost> {
                       if (userId == null) {
                         return;
                       }
-                      final isUpload = await ref
-                          .read(imageUploadProvider.notifier)
-                          .upload(
-                              file: widget.file,
-                              fileType: widget.fileType,
-                              userId: userId,
-                              message: postTextController.value.text,
-                              postSetting: postSettings);
+                      bool isUpload;
+                      if (!widget.isReel) {
+                        isUpload = await ref
+                            .read(imageUploadProvider.notifier)
+                            .upload(
+                                file: widget.file,
+                                fileType: widget.fileType,
+                                userId: userId,
+                                message: postTextController.value.text,
+                                postSetting: postSettings);
+                      } else {
+                        isUpload = await ref
+                            .read(reelsUploadProvider.notifier)
+                            .upload(
+                                file: widget.file,
+                                userId: userId,
+                                message: postTextController.value.text,
+                                postSetting: postSettings);
+                      }
+
                       if (isUpload && mounted) {
                         Navigator.pop(context);
                       }

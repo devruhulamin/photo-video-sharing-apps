@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:instagram_clone/state/post/models/post_key.dart';
 
@@ -21,6 +22,7 @@ class ReelsPayload extends MapView<String, dynamic> {
           PostKey.message: message,
           PostKey.originalFileStorageId: originalFileStorageId,
           PostKey.fileUrl: fileUrl,
+          PostKey.createdAt: FieldValue.serverTimestamp(),
           PostKey.postSettings: {
             for (final postSetting in postSettings.entries)
               postSetting.key.storageKey: postSetting.value,

@@ -4,6 +4,7 @@ import 'package:instagram_clone/state/comment/providers/delete_comment_provider.
 import 'package:instagram_clone/state/comment/providers/send_comment_provider.dart';
 import 'package:instagram_clone/state/image_upload/providers/image_upload_providers.dart';
 import 'package:instagram_clone/state/post/providers/delete_post_provider.dart';
+import 'package:instagram_clone/state/reels_upload/provider/reels_upload_provider.dart';
 
 final isLoadingProvider = Provider<bool>((ref) {
   final authLoading = ref.watch(authStateProvider).isLoading;
@@ -11,9 +12,11 @@ final isLoadingProvider = Provider<bool>((ref) {
   final isSendingComment = ref.watch(sendCommentProvider);
   final isDeletingPost = ref.watch(deletePostProvider);
   final isDeletingComment = ref.watch(deleteCommentProvider);
+  final isReelsUploading = ref.watch(reelsUploadProvider);
   return authLoading ||
       isImageUploading ||
       isSendingComment ||
       isDeletingPost ||
-      isDeletingComment;
+      isDeletingComment ||
+      isReelsUploading;
 });

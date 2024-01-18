@@ -9,6 +9,7 @@ import 'package:instagram_clone/state/providers/is_loading_provider.dart';
 import 'package:instagram_clone/views/components/constants/loading/loading_screen.dart';
 import 'package:instagram_clone/views/login/login_view.dart';
 import 'package:instagram_clone/views/main/main_view.dart';
+import 'package:instagram_clone/views/reels/reels_view.dart';
 
 extension Log on Object {
   void log() => devtools.log(toString());
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
           );
           final isloggedIn = ref.watch(isLoggedInProvider);
           if (isloggedIn) {
-            return const MainView();
+            return const ReelsView();
           } else {
             return const LoginView();
           }

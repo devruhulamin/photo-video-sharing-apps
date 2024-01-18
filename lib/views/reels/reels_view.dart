@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/views/components/reels/reels_action_buttons.dart';
+import 'package:instagram_clone/views/components/reels/reels_video_view.dart';
 
 class ReelsView extends ConsumerStatefulWidget {
   const ReelsView({super.key});
@@ -20,14 +21,10 @@ class _ReelsViewState extends ConsumerState<ReelsView> {
           itemCount: 10,
           itemBuilder: (context, index) {
             return Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        'https://source.unsplash.com/user/c_v_r/700x700',
-                      ))),
+              // color: Colors.black54,
               child: const Stack(
                 children: [
+                  ReelVideoView(),
                   Positioned(
                     bottom: 10,
                     right: 20,

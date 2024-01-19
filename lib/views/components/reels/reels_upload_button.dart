@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/state/image_upload/helpers/image_picker_helpers.dart';
 import 'package:instagram_clone/state/image_upload/models/file_type.dart';
 import 'package:instagram_clone/state/post_settings/providers/post_settings_notifier_provider.dart';
+import 'package:instagram_clone/state/reels/provider/is_video_playing_providero.dart';
 import 'package:instagram_clone/views/create_new_post/create_new_post.dart';
 
 class ReelsUploadButton extends ConsumerStatefulWidget {
@@ -26,6 +27,7 @@ class _ReelsUploadButtonState extends ConsumerState<ReelsUploadButton> {
             return;
           }
           ref.invalidate(postSettingProvider);
+          ref.read(videoPlayBakProvider.notifier).state = VideoPlayBack.pause;
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => CreateNewPost(
               file: reelFile,

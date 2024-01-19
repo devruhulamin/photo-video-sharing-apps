@@ -9,6 +9,7 @@ import 'package:instagram_clone/state/image_upload/models/thumbnail_request.dart
 import 'package:instagram_clone/state/image_upload/providers/image_upload_providers.dart';
 import 'package:instagram_clone/state/post_settings/models/post_setting.dart';
 import 'package:instagram_clone/state/post_settings/providers/post_settings_notifier_provider.dart';
+import 'package:instagram_clone/state/reels/provider/is_video_playing_providero.dart';
 import 'package:instagram_clone/state/reels/provider/reels_upload_provider.dart';
 import 'package:instagram_clone/views/components/file_thumbnail_view.dart';
 import 'package:instagram_clone/views/constants/view_strings.dart';
@@ -44,11 +45,26 @@ class _CreateNewPostState extends ConsumerState<CreateNewPost> {
       postTextController.addListener(listener);
 
       return () {
+        if (widget.isReel) {}
         postTextController.removeListener(listener);
       };
     }, [postTextController]);
+
     return Scaffold(
       appBar: AppBar(
+        leading: widget.isReel
+            ? IconButton(
+                onPressed: () {
+                  ref.read(videoPlayBakProvider.notifier).state =
+                      VideoPlayBack.play;
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.arrow_back))
+            : IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.arrow_back)),
         title: const Text(ViewStrings.createNewPost),
         centerTitle: true,
         actions: [
@@ -80,6 +96,8 @@ class _CreateNewPostState extends ConsumerState<CreateNewPost> {
                       }
 
                       if (isUpload && mounted) {
+                        ref.read(videoPlayBakProvider.notifier).state =
+                            VideoPlayBack.play;
                         Navigator.pop(context);
                       }
                     }

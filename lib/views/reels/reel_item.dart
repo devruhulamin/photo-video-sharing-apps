@@ -19,7 +19,7 @@ class ReelItem extends StatelessWidget {
           return Stack(
             fit: StackFit.expand,
             children: [
-              ReelVideoView(
+              ReelVideView(
                 reel: reels.elementAt(index),
               ),
               const Positioned(top: 10, right: 10, child: ReelsUploadButton()),
